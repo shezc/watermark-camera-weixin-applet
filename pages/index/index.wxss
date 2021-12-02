@@ -1,0 +1,76 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+}
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.usermotto {
+  margin-top: 200px;
+}
+
+.camera{
+  width: 100vw;
+  height: 80vh;
+}
+.take_photo{
+  position: fixed;
+  bottom: 10px;
+  left: 160px;
+  width: 50px !important;
+  height: 50px;
+  border-radius: 50%;
+  background-color: seagreen;
+}
+
+.take_video{
+  left: 0;
+  position: fixed;
+  bottom: 10px;
+  width: 90px !important;
+  height: 50px;
+}
+
+.get_position {
+  position: fixed;
+  right: 0;
+  bottom: 10px;
+  
+  width: 120px !important;
+  
+  height: 50px;
+}
+
+.flash {
+  padding: 0;
+  position: fixed;
+  top: 10px;
+  left: 0;
+  z-index:1;
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px;
+  padding-top: 5px;
+  z-index: 20;
+}
+.devicePosition {
+  padding: 0;
+  position: fixed;
+  top: 10px;
+  left: 50px;
+  z-index:1;
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px;
+  padding-top: 5px;
+  z-index: 20;
+}

@@ -1,0 +1,24 @@
+<view>
+  <button
+    class='flash'
+    bindtap='changeFlashMode'>{{ cameraObj[cameraMode[cameraIndex]] }}</button>
+  <button
+    class='devicePosition'
+    bindtap='changeDevicePosition'>{{ deviceName }}</button>
+    <div class="camera">
+      <camera
+        class="camera"
+        resolution="high"
+        device-position="{{deviceName === '前置' ? 'front' : 'back'}}"
+        flash="{{cameraMode[cameraIndex]}}"
+        mode="normal"
+        frame-size="small" />
+        <div class="camera" style="background-color: aqua;z-index: 10;position: fixed;top: 0;opacity: 0.2;">
+          898
+        </div>
+  </div>
+  <!-- frame-size="large"拍照图片高清 -->
+  <button class='take_video' bindtap='takeVideo'>录像</button>
+  <button class='take_photo' bindtap='record' />
+  <button class='get_position' bindtap='showPosition'>相册列表</button>
+</view>
