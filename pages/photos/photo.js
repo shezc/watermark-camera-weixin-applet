@@ -6,22 +6,26 @@ Page({
     showCanvas: null,
     tempImgUrl: '',
     tempMarkUrl: '',
-    imgUrl: ''
+    imgUrl: '',
+    endX:0,
+    endY:0
  }, 
  onLoad: function(options) {
    console.log(options, 'lalla')
   //  先走的这一步，再走onshow
-   const { tempImgUrl,tempMarkUrl } = options
+   const { tempImgUrl,tempMarkUrl,endX,endY } = options
     this.setData({
       tempImgUrl,
-      tempMarkUrl
+      tempMarkUrl,
+      endX,
+      endY
     })
  }, 
  onShow: function () {
   this.data.showCanvas = wx.createCanvasContext("show")
   // 画图
-  this.data.showCanvas.drawImage(this.data.tempImgUrl, 0, 0);//拍的照片，做底
-  this.data.showCanvas.drawImage(this.data.tempMarkUrl, 0, 0, 100, 100);//需要加的背景
+  this.data.showCanvas.drawImage(this.data.tempImgUrl, 0,0);//拍的照片，做底
+  this.data.showCanvas.drawImage(this.data.tempMarkUrl, this.data.endX, this.data.endY, 100, 100);//需要加的背景
   this.data.showCanvas.draw()
 },
  chooseimage: function () { 

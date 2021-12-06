@@ -65,7 +65,15 @@ Page({
 
   // div转canvas
   onLoad() {
-    this.widget = this.selectComponent('.widget')
+    // this.widget = this.selectComponent('.widget')
+  },
+  onShow: async function () {
+    this.widget = await this.selectComponent('.widget')
+    const container = await this.widget.renderToCanvas({
+      wxml: this.data.wxml,
+      style: this.data.wxmlStyle
+    })
+    this.container = container
   },
   // 开始移动
   touchStart(e) {
@@ -140,7 +148,7 @@ Page({
             this.widget.canvasToTempFilePath().then(data => {
               wx.navigateTo({
                 // 传参
-                url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${data.tempFilePath}`
+                url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${data.tempFilePath}&endX=${this.data.endX}&endY=${this.data.endY}`
               })
             })
 

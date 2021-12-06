@@ -29,6 +29,7 @@
 .take_photo{
   position: fixed;
   bottom: 40rpx;
+  font-size: 110rpx;
   left: calc(50% - 30rpx);
 }
 
