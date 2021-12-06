@@ -39,11 +39,12 @@ Page({
       }
     },
     pageX: 0,
-    pageY:0,
+    pageY: 0,
     startX: 0,
-    startY:0,
+    startY: 0,
     endX: 0,
     endY: 0,
+    tempMarkUrl: '',
 
     cameraObj: {
       auto: '自动',
@@ -67,16 +68,24 @@ Page({
     this.widget = this.selectComponent('.widget')
   },
   // 开始移动
-  touchStart (e) {
-    const { pageX, pageY } = e.changedTouches[0]
+  touchStart(e) {
+    const {
+      pageX,
+      pageY
+    } = e.changedTouches[0]
     this.setData({
       startX: pageX,
       startY: pageY
     })
   },
   // 结束移动(e) 
-  touchEnd ({target}) {
-    const {offsetLeft, offsetTop} = target
+  touchEnd({
+    target
+  }) {
+    const {
+      offsetLeft,
+      offsetTop
+    } = target
     this.setData({
       endX: offsetLeft,
       endY: offsetTop
@@ -84,7 +93,10 @@ Page({
   },
   // 移动 
   move(e) {
-    const { pageX, pageY } = e.changedTouches[0]
+    const {
+      pageX,
+      pageY
+    } = e.changedTouches[0]
     const currentPageX = pageX - this.data.startX + this.data.endX
     const currentPageY = pageY - this.data.startY + this.data.endY
     this.setData({
@@ -92,27 +104,26 @@ Page({
       pageY: currentPageY < 0 ? 0 : currentPageY
     })
   },
-  renderToCanvas() {
-    const p1 = this.widget.renderToCanvas({ wxml:this.data.wxml, style: this.data.wxmlStyle })
-    p1.then((res) => {
-      this.container = res
+  // 初始化canvas
+  async renderToCanvas() {
+    const container = await this.widget.renderToCanvas({
+      wxml: this.data.wxml,
+      style: this.data.wxmlStyle
     })
+    this.container = container
   },
-  extraImage() {
-    const p2 = this.widget.canvasToTempFilePath()
-    p2.then(res => {
-      this.setData({
-        src: res.tempFilePath,
-        width: this.container.layoutBox.width,
-        height: this.container.layoutBox.height
-      })
+  // 将canvas转为图片
+  async canvasToImg() {
+    const res = await this.widget.canvasToTempFilePath()
+    this.setData({
+      tempMarkUrl: res.tempFilePath,
     })
   },
   // 拍照
-  record () {
+  async record() {
     this.data.cameraContext = wx.createCameraContext()
     this.data.cameraContext.takePhoto({
-      quality:"high", //高质量的图片
+      quality: "high", //高质量的图片
       success: res => {
         //res.tempImagePath照片文件在手机内的的临时路径
         let tempImagePath = res.tempImagePath
@@ -122,14 +133,19 @@ Page({
             //返回保存时的临时路径 res.savedFilePath
             const savedFilePath = res.savedFilePath
             // 保存到本地相册
-            wx.saveImageToPhotosAlbum({
-              filePath: savedFilePath,
+            // wx.saveImageToPhotosAlbum({
+            //   filePath: savedFilePath,
+            // })
+            let tempMarkUrl = ''
+            this.widget.canvasToTempFilePath().then(data => {
+              console.log(data)
+              tempMarkUrl = data.tempFilePath
             })
 
             // 跳转到相册
             wx.navigateTo({
               // 传参
-              url: `/pages/photos/photo?tempUrl=${savedFilePath}`
+              url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${tempMarkUrl}`
             })
           },
           //保存失败回调（比如内存不足）
@@ -160,14 +176,18 @@ Page({
     })
   },
   // 改变闪光灯模式
-  changeFlashMode () {
+  changeFlashMode() {
     if (this.data.cameraIndex < 3) {
-      this.setData({cameraIndex: this.data.cameraIndex + 1})
+      this.setData({
+        cameraIndex: this.data.cameraIndex + 1
+      })
     } else {
-      this.setData({cameraIndex: 0})
+      this.setData({
+        cameraIndex: 0
+      })
     }
   },
-  changeDevicePosition () {
+  changeDevicePosition() {
     this.setData({
       deviceName: this.data.deviceName === '后置' ? '前置' : '后置'
     })

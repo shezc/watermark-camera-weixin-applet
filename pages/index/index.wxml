@@ -24,7 +24,8 @@
   <!-- 录像 -->
   <span class="take_video iconfont icon-luxiang" bindtap='renderToCanvas' />
   <!-- 拍照 -->
-  <span class="take_photo iconfont icon-photo" />
+  <span class="take_photo iconfont icon-photo" bindtap='record' />
   <!-- 查看相册 -->
   <span class="get_position iconfont icon-album"  bindtap='showPosition' />
+  <!-- <span class="get_position iconfont icon-album"  bindtap='canvasToImg' /> -->
 </view>

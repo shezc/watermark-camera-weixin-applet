@@ -3,8 +3,9 @@
     bindtap="chooseimage">获取图片</button> 
     <button
     style="margin:auto;"
-    bindtap="getPosition">获取当前位置</button> 
-<image
+    bindtap="getPosition">获取当前位置</button>
+<canvas canvas-id="show" /> 
+<!-- <image
     src="{{tempFilePaths }}"
     mode="aspecFill"
-    style="width: 800rpx; height: 800rpx;flex: 1;object-fit: cover;"/> 
+    style="width: 800rpx; height: 800rpx;flex: 1;object-fit: cover;"/>  -->
