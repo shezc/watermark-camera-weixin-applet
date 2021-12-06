@@ -13,5 +13,8 @@
     },
     "style": "v2",
     "sitemapLocation": "sitemap.json",
-    "lazyCodeLoading": "requiredComponents"
+    "lazyCodeLoading": "requiredComponents",
+    "usingComponents": {
+        "wxml-to-canvas": "./miniprogram_npm/wxml-to-canvas"
+    }
 }

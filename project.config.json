@@ -12,7 +12,7 @@
         "minified": true,
         "newFeature": false,
         "coverView": true,
-        "nodeModules": false,
+        "nodeModules": true,
         "autoAudits": false,
         "showShadowRootInWxmlPanel": true,
         "scopeDataCheck": false,
@@ -36,8 +36,10 @@
         "packNpmManually": false,
         "packNpmRelationList": [],
         "minifyWXSS": true,
+        "disableUseStrict": false,
+        "minifyWXML": true,
         "showES6CompileOption": false,
-        "minifyWXML": true
+        "useCompilerPlugins": false
     },
     "compileType": "miniprogram",
     "libVersion": "2.19.2",

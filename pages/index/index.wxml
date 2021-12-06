@@ -1,24 +1,30 @@
 <view>
-  <button
-    class='flash'
-    bindtap='changeFlashMode'>{{ cameraObj[cameraMode[cameraIndex]] }}</button>
-  <button
-    class='devicePosition'
-    bindtap='changeDevicePosition'>{{ deviceName }}</button>
-    <div class="camera">
-      <camera
-        class="camera"
-        resolution="high"
-        device-position="{{deviceName === '前置' ? 'front' : 'back'}}"
-        flash="{{cameraMode[cameraIndex]}}"
-        mode="normal"
-        frame-size="small" />
-        <div class="camera" style="background-color: aqua;z-index: 10;position: fixed;top: 0;opacity: 0.2;">
-          898
-        </div>
+  <span class="flash" bindtap='changeFlashMode'>{{ cameraObj[cameraMode[cameraIndex]] }}</span>
+  <span class="devicePosition iconfont icon-reverse" bindtap='changeDevicePosition' />
+  <div class="camera">
+    <camera
+      class="camera"
+      resolution="high"
+      device-position="{{deviceName === '前置' ? 'front' : 'back'}}"
+      flash="{{cameraMode[cameraIndex]}}"
+      mode="normal"
+      frame-size="small" />
+      
+      <wxml-to-canvas
+        bindtouchstart="touchStart"
+        bindtouchmove="move"
+        class="widget"
+        bindtouchend="touchEnd"
+        style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity: 0.2;" />
   </div>
+
+  <wxml-to-canvas class="widget"></wxml-to-canvas>
+
   <!-- frame-size="large"拍照图片高清 -->
-  <button class='take_video' bindtap='takeVideo'>录像</button>
-  <button class='take_photo' bindtap='record' />
-  <button class='get_position' bindtap='showPosition'>相册列表</button>
+  <!-- 录像 -->
+  <span class="take_video iconfont icon-luxiang" bindtap='renderToCanvas' />
+  <!-- 拍照 -->
+  <span class="take_photo iconfont icon-photo" />
+  <!-- 查看相册 -->
+  <span class="get_position iconfont icon-album"  bindtap='showPosition' />
 </view>
