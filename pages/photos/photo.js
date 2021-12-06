@@ -12,14 +12,17 @@ Page({
    console.log(options, 'lalla')
   //  先走的这一步，再走onshow
    const { tempImgUrl,tempMarkUrl } = options
-   console.log(tempImgUrl, tempMarkUrl)
     this.setData({
       tempImgUrl,
       tempMarkUrl
     })
  }, 
  onShow: function () {
-  this.data.showCanvas = wx.createCanvasContext("show");
+  this.data.showCanvas = wx.createCanvasContext("show")
+  // 画图
+  this.data.showCanvas.drawImage(this.data.tempImgUrl, 0, 0);//拍的照片，做底
+  this.data.showCanvas.drawImage(this.data.tempMarkUrl, 0, 0, 100, 100);//需要加的背景
+  this.data.showCanvas.draw()
 },
  chooseimage: function () { 
   wx.chooseImage({ 

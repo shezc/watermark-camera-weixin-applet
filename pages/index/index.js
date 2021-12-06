@@ -136,17 +136,16 @@ Page({
             // wx.saveImageToPhotosAlbum({
             //   filePath: savedFilePath,
             // })
-            let tempMarkUrl = ''
+            // 将canvas转成图片
             this.widget.canvasToTempFilePath().then(data => {
-              console.log(data)
-              tempMarkUrl = data.tempFilePath
+              wx.navigateTo({
+                // 传参
+                url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${data.tempFilePath}`
+              })
             })
 
             // 跳转到相册
-            wx.navigateTo({
-              // 传参
-              url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${tempMarkUrl}`
-            })
+            
           },
           //保存失败回调（比如内存不足）
           fail: console.log
