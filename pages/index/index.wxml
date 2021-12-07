@@ -1,14 +1,15 @@
 <view>
   <span class="flash" bindtap='changeFlashMode'>{{ cameraObj[cameraMode[cameraIndex]] }}</span>
   <span class="devicePosition iconfont icon-reverse" bindtap='changeDevicePosition' />
-  <div class="camera">
+  <div>
     <camera
       class="camera"
       resolution="high"
       device-position="{{deviceName === '前置' ? 'front' : 'back'}}"
       flash="{{cameraMode[cameraIndex]}}"
       mode="normal"
-      frame-size="small" />
+      frame-size="small"
+      style="width: {{cameraWidth}}px;height:{{cameraHeight}}px" />
       
       <wxml-to-canvas
         bindtouchstart="touchStart"
@@ -22,7 +23,7 @@
 
   <!-- frame-size="large"拍照图片高清 -->
   <!-- 录像 -->
-  <span class="take_video iconfont icon-luxiang" bindtap='renderToCanvas' />
+  <span class="take_video iconfont icon-luxiang" bindtap='takeVideo' />
   <!-- 拍照 -->
   <span class="take_photo iconfont icon-photo" bindtap='record' />
   <!-- 查看相册 -->

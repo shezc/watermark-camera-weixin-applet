@@ -45,6 +45,8 @@ Page({
     endX: 0,
     endY: 0,
     tempMarkUrl: '',
+    cameraWidth: 0,
+    cameraHeight: 0,
 
     cameraObj: {
       auto: '自动',
@@ -64,16 +66,26 @@ Page({
   },
 
   // div转canvas
-  onLoad() {
-    // this.widget = this.selectComponent('.widget')
-  },
-  onShow: async function () {
-    this.widget = await this.selectComponent('.widget')
-    const container = await this.widget.renderToCanvas({
-      wxml: this.data.wxml,
-      style: this.data.wxmlStyle
+  onLoad: function() {
+
+    wx.getSystemInfo({
+      success: res => {
+        const {windowHeight, windowWidth } = res
+        this.setData({
+          cameraHeight: windowHeight - 100,
+          cameraWidth: windowWidth
+        })
+      }
     })
-    this.container = container
+
+    // 初始化canvas
+    this.widget = this.selectComponent('.widget')
+    setTimeout(() => {
+      this.container = this.widget.renderToCanvas({
+        wxml: this.data.wxml,
+        style: this.data.wxmlStyle
+      })
+    }, 100)
   },
   // 开始移动
   touchStart(e) {
@@ -112,21 +124,6 @@ Page({
       pageY: currentPageY < 0 ? 0 : currentPageY
     })
   },
-  // 初始化canvas
-  async renderToCanvas() {
-    const container = await this.widget.renderToCanvas({
-      wxml: this.data.wxml,
-      style: this.data.wxmlStyle
-    })
-    this.container = container
-  },
-  // 将canvas转为图片
-  async canvasToImg() {
-    const res = await this.widget.canvasToTempFilePath()
-    this.setData({
-      tempMarkUrl: res.tempFilePath,
-    })
-  },
   // 拍照
   async record() {
     this.data.cameraContext = wx.createCameraContext()
@@ -139,16 +136,26 @@ Page({
           tempFilePath: tempImagePath,
           success: (res) => {
             //返回保存时的临时路径 res.savedFilePath
-            const savedFilePath = res.savedFilePath
+
             // 保存到本地相册
             // wx.saveImageToPhotosAlbum({
             //   filePath: savedFilePath,
             // })
+
+            // 给子组件传递的参数
+            const options = {
+              tempImgUrl: res.savedFilePath,
+              endX: this.data.endX,
+              endY: this.data.endY,
+              cameraHeight: this.data.cameraHeight,
+              cameraWidth: this.data.cameraWidth
+            }
+
             // 将canvas转成图片
             this.widget.canvasToTempFilePath().then(data => {
               wx.navigateTo({
                 // 传参
-                url: `/pages/photos/photo?tempImgUrl=${savedFilePath}&tempMarkUrl=${data.tempFilePath}&endX=${this.data.endX}&endY=${this.data.endY}`
+                url: `/pages/photos/photo?tempMarkUrl=${data.tempFilePath}&options=${JSON.stringify(options)}`
               })
             })
 
@@ -162,20 +169,20 @@ Page({
     })
   },
   // 录像
-  // takeVideo () {
-  //   wx.chooseVideo({
-  //     maxDuration:10,
-  //     success:function(res1){
-  //       app.startOperating("上传中")
-  //       // 这个就是最终拍摄视频的临时路径了
-  //       var tempFilePath=res1.tempFilePath;
-  //       console.log(tempFilePath)
-  //     },
-  //     fail:function(){
-  //       console.error("获取本地视频时出错");
-  //     }
-  //   })
-  // },
+  takeVideo () {
+    wx.chooseVideo({
+      maxDuration:10,
+      success:function(res1){
+        app.startOperating("上传中")
+        // 这个就是最终拍摄视频的临时路径了
+        var tempFilePath=res1.tempFilePath;
+        console.log(tempFilePath)
+      },
+      fail:function(){
+        console.error("获取本地视频时出错");
+      }
+    })
+  },
   // 跳转到获取相册列表
   showPosition() {
     wx.navigateTo({
