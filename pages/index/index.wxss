@@ -20,13 +20,6 @@
   margin-top: 200rpx;
 }
 
-.camera{
-  /* width: 300px;
-  height: 300px; */
-  /* width: 100%; */
-  /* height: calc(100vh - 200rpx); */
-}
-
 .take_photo{
   position: fixed;
   bottom: 40rpx;

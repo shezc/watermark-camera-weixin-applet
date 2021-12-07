@@ -3,7 +3,6 @@
   <span class="devicePosition iconfont icon-reverse" bindtap='changeDevicePosition' />
   <div>
     <camera
-      class="camera"
       resolution="high"
       device-position="{{deviceName === '前置' ? 'front' : 'back'}}"
       flash="{{cameraMode[cameraIndex]}}"
