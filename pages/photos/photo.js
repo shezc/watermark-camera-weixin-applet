@@ -41,19 +41,34 @@ Page({
     this.data.showCanvas.drawImage(this.data.tempMarkUrl, this.data.endX, this.data.endY, 200, 200); //需要加的背景
     this.data.showCanvas.draw()
   },
-  chooseimage: function () {
-    wx.chooseImage({
-      count: 1, // 默认9 
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有 
-      sourceType: ['album'], // 可以指定来源是相册还是相机，默认二者都有 
-      success: res => {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
-        this.setData({
-          tempImgUrl: res.tempFilePaths[0]
-        })
-      }
-    })
-  },
+  saveImg () {
+    setTimeout(() => {
+      // 将canvas转为临时图片
+      wx.canvasToTempFilePath({
+          canvasId: 'show',
+          success: res => {
+            // 获取临时图片路径然后保存
+              wx.saveImageToPhotosAlbum({
+                filePath: res.tempFilePath,
+                success: res => {
+                  wx.showToast({
+                    title: '保存成功'
+                  })
+                },
+                fail() {
+                  wx.showToast({
+                    title: '保存失败',
+                    icon: 'none'
+                  })
+                }
+              })
+          },
+          fail: function(res) {
+              console.log(res);
+          }
+      });
+
+  })},
   getPosition() {
     wx.navigateTo({
       url: '/pages/position/position'

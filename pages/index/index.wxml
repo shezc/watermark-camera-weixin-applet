@@ -18,7 +18,7 @@
         style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity: 0.2;" />
   </div>
 
-  <wxml-to-canvas class="widget"></wxml-to-canvas>
+  <wxml-to-canvas class="widget" />
 
   <!-- frame-size="large"拍照图片高清 -->
   <!-- 录像 -->

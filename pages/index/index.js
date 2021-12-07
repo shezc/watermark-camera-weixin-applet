@@ -67,7 +67,6 @@ Page({
 
   // div转canvas
   onLoad: function() {
-
     wx.getSystemInfo({
       success: res => {
         const {windowHeight, windowWidth } = res
@@ -85,7 +84,7 @@ Page({
         wxml: this.data.wxml,
         style: this.data.wxmlStyle
       })
-    }, 100)
+    }, 300)
   },
   // 开始移动
   touchStart(e) {

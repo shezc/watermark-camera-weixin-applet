@@ -1,7 +1,3 @@
-<button style="margin:auto;" bindtap="chooseimage">获取图片</button>
+<button style="margin:auto;" bindtap="saveImg">保存图片</button>
 <button style="margin:auto;" bindtap="getPosition">获取当前位置</button>
 <canvas canvas-id="show" style="width: 100%; height: 85vh;object-fit: cover;" />
-<!-- <image
-    src="{{tempFilePaths }}"
-    mode="aspecFill"
-    style="width: 800rpx; height: 800rpx;flex: 1;object-fit: cover;"/>  -->
