@@ -191,13 +191,24 @@ Page({
   takeVideo () {
     wx.chooseVideo({
       maxDuration:60,
-      success:function(res1){
-        app.startOperating("上传中")
-        // 这个就是最终拍摄视频的临时路径了
-        var tempFilePath=res1.tempFilePath;
-        console.log(tempFilePath)
+      success: res => {
+        // 保存视频
+        wx.saveVideoToPhotosAlbum({
+          filePath: res.tempFilePath,
+          success: res => {
+            wx.showToast({
+              title: '保存成功'
+            })
+          },
+          fail() {
+            wx.showToast({
+              title: '保存失败',
+              icon: 'none'
+            })
+          }
+        })
       },
-      fail:function(){
+      fail: () => {
         console.error("获取本地视频时出错");
       }
     })
