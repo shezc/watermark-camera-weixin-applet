@@ -1,6 +1,12 @@
 <view>
-  <span class="flash" bindtap='changeFlashMode'>{{ cameraObj[cameraMode[cameraIndex]] }}</span>
-  <span class="devicePosition iconfont icon-reverse" bindtap='changeDevicePosition' />
+  <span
+    class="flash"
+    bindtap='changeFlashMode'>
+    {{ cameraObj[cameraMode[cameraIndex]] }}
+  </span>
+  <span
+    class="devicePosition iconfont icon-reverse"
+    bindtap='changeDevicePosition' />
   <div>
     <camera
       resolution="high"
@@ -15,11 +21,9 @@
         bindtouchmove="move"
         class="widget"
         bindtouchend="touchEnd"
-        style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity: 0.2;" />
+        style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity:0.5;" />
   </div>
-
   <wxml-to-canvas class="widget" />
-
   <!-- frame-size="large"拍照图片高清 -->
   <!-- 录像 -->
   <span class="take_video iconfont icon-luxiang" bindtap='takeVideo' />
@@ -27,5 +31,4 @@
   <span class="take_photo iconfont icon-photo" bindtap='record' />
   <!-- 查看相册 -->
   <span class="get_position iconfont icon-album"  bindtap='showPosition' />
-  <!-- <span class="get_position iconfont icon-album"  bindtap='canvasToImg' /> -->
 </view>

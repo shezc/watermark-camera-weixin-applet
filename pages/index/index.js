@@ -17,7 +17,7 @@ Page({
         flexDirection: 'row',
         justifyContent: 'space-around',
         backgroundColor: '#ccc',
-        alignItems: 'center',
+        alignItems: 'center'
       },
       itemBox: {
         width: 80,
@@ -118,9 +118,12 @@ Page({
     } = e.changedTouches[0]
     const currentPageX = pageX - this.data.startX + this.data.endX
     const currentPageY = pageY - this.data.startY + this.data.endY
+    // 计算边界值 说明：200是自己设置的水印宽高
+    const maxCurrentPageY = this.data.cameraHeight - 200
+    const maxCurrentPageX = this.data.cameraWidth - 200
     this.setData({
-      pageX: currentPageX < 0 ? 0 : currentPageX,
-      pageY: currentPageY < 0 ? 0 : currentPageY
+      pageX: currentPageX < 0 ? 0 : currentPageX > maxCurrentPageX ? maxCurrentPageX : currentPageX,
+      pageY: currentPageY < 0 ? 0 : currentPageY > maxCurrentPageY ? maxCurrentPageY : currentPageY
     })
   },
   // 拍照
