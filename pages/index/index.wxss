@@ -23,20 +23,23 @@
 .take_photo{
   position: fixed;
   bottom: 40rpx;
-  font-size: 110rpx;
-  left: calc(25vh - 30rpx);
+  font-size: 120rpx;
+  left: 317rpx;
+  z-index: 999;
 }
 
 .take_video{
   left: 20rpx;
   position: fixed;
   bottom: 40rpx;
+  z-index: 999;
 }
 
-.get_position {
+.get_img {
   position: fixed;
   right: 20rpx;
   bottom: 40rpx;
+  z-index: 999;
 }
 
 .flash {

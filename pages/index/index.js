@@ -1,4 +1,5 @@
 const {wxml, style} = require('./watermark')
+const qqMap = require('../../lib/qqmap-wx-jssdk.min')
 
 // 获取应用实例
 const app = getApp()
@@ -24,6 +25,7 @@ Page({
     },
     deviceName: '后置',
     widget: null,
+    address: '',
 
 
     userInfo: {},
@@ -32,11 +34,15 @@ Page({
     canIUseGetUserProfile: false,
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName') // 如需尝试获取用户信息可改为false
   },
+  onLoad: function () {
+    this.qqMapSdk = new qqMap({
+      key: 'QSFBZ-66DWQ-55J52-GBNST-HASM5-FGFCD'
+    })
+  },
 
   // div转canvas
   onShow: function() {
     this.getPosition()
-
     wx.getSystemInfo({
       success: res => {
         const {windowHeight, windowWidth } = res
@@ -52,20 +58,31 @@ Page({
     setTimeout(() => {
       this.container = this.widget.renderToCanvas({
         wxml : wxml({
+          address: this.data.address,
           time: this.getNowTime().time,
-          date: this.getNowTime().date
+          date: this.getNowTime().date,
         }),
         style
       })
-    }, 300)
+    }, 500)
   },
   // 获取当前位置
   getPosition() {
     wx.getLocation({
       type: 'wgs84',
-      success (res) {
-        console.log(res)
-        
+      success: point => {
+        const {latitude, longitude} = point
+        this.qqMapSdk.reverseGeocoder({
+          location: {latitude,longitude},
+          coord_type: 1,
+          poi_options: 'policy=2;radius=3000;page_size=20;page_index=1',
+          success: data => {
+            const { result } = data
+            this.setData({
+              address: result.address
+            })
+          }
+        })
       }
      })
   },
@@ -83,7 +100,7 @@ Page({
     const weekNo = `星期${weekNos[date.getDay()]}`
     return {
       time: `${hh} : ${mf}`,
-      date: `${yy}/${mm}/${dd}      ${weekNo}`,
+      date: `${yy}/${mm}/${dd}        ${weekNo}`,
     }
   },
   // 开始移动
@@ -173,7 +190,7 @@ Page({
   // 录像
   takeVideo () {
     wx.chooseVideo({
-      maxDuration:10,
+      maxDuration:60,
       success:function(res1){
         app.startOperating("上传中")
         // 这个就是最终拍摄视频的临时路径了

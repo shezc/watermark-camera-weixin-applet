@@ -1,11 +1,20 @@
 const wxml = (options) =>
     `<view class="container" >
-            <image class="img" src="../../lib/imgs/MCTECH-LOGO.png"></image>
+            <view class="img_container">
+                <image class="img" src="../../lib/imgs/mc.png"></image>
+            </view>
             <text class="time">${options.time}</text>
             <text class="date">${options.date}</text>
+            <text class="address">${options.address}</text>
     </view>`
 
 const style = {
+    img_container: {
+        width: 200,
+        height: 35,
+        flexDirection: 'row',
+        alignItems: 'flex-start'
+    },
     container: {
         width: 200,
         height: 200,
@@ -14,25 +23,31 @@ const style = {
     },
     time: {
         width: 200,
-        height: 30,
-        fontSize: 30,
+        height: 40,
+        fontSize: 40,
         textAlign: 'left',
         color: '#E1E6FD',
-        marginTop: '-6'
+        marginTop: '-5'
     },
     date: {
         width: 200,
-        height: 20,
-        fontSize: 20,
+        height: 30,
+        fontSize: 30,
         color: '#E1E6FD',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'spaceBetween'
-
+        justifyContent: 'spaceBetween',
+        marginTop: 15
     },
     img: {
+        width: 128,
+        height: 35
+    },
+    address: {
         width: 200,
-        height: 120
+        height: 85,
+        color: 'white',
+        fontSize: 24
     }
 }
 
