@@ -38,7 +38,7 @@ Page({
     this.data.showCanvas = wx.createCanvasContext("show")
     // 画图 (第一个参数是临时地址，第2、3个参数是定位，第4、5个参数是图片大小)
     this.data.showCanvas.drawImage(this.data.tempImgUrl, 0, 0, this.data.cameraWidth, this.data.cameraHeight ); //拍的照片，做底
-    this.data.showCanvas.setGlobalAlpha(0.5) // 设置水印的透明度
+    this.data.showCanvas.setGlobalAlpha(0.7) // 设置水印的透明度
     this.data.showCanvas.drawImage(this.data.tempMarkUrl, this.data.endX, this.data.endY, 200, 200); //需要加的背景
     this.data.showCanvas.draw()
   },
@@ -69,10 +69,5 @@ Page({
           }
       });
 
-  })},
-  getPosition() {
-    wx.navigateTo({
-      url: '/pages/position/position'
-    })
-  }
+  })}
 })

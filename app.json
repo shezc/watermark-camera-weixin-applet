@@ -2,8 +2,7 @@
     "pages": [
         "pages/index/index",
         "pages/logs/logs",
-        "pages/photos/photo",
-        "pages/position/position"
+        "pages/photos/photo"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -16,5 +15,10 @@
     "lazyCodeLoading": "requiredComponents",
     "usingComponents": {
         "wxml-to-canvas": "./miniprogram_npm/wxml-to-canvas"
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "请确定授权"
+        }
     }
 }

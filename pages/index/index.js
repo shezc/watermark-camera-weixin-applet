@@ -1,43 +1,11 @@
+const {wxml, style} = require('./watermark')
+
 // 获取应用实例
 const app = getApp()
 Page({
   data: {
     cameraMode: ['auto', 'on', 'off', 'torch'],
     cameraIndex: 0,
-    // 定义的canvas标签
-    wxml: `<view class="container">
-      <view class="item-box green" >
-        <text class="text">Yeah!</text>
-      </view>
-      </view>`,
-    wxmlStyle: {
-      container: {
-        width: 200,
-        height: 200,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: '#ccc',
-        alignItems: 'center'
-      },
-      itemBox: {
-        width: 80,
-        height: 60,
-      },
-      green: {
-        backgroundColor: '#00ff00'
-      },
-      text: {
-        width: 80,
-        height: 60,
-        textAlign: 'center',
-        verticalAlign: 'middle',
-      },
-      img: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-      }
-    },
     pageX: 0,
     pageY: 0,
     startX: 0,
@@ -66,7 +34,9 @@ Page({
   },
 
   // div转canvas
-  onLoad: function() {
+  onShow: function() {
+    this.getPosition()
+
     wx.getSystemInfo({
       success: res => {
         const {windowHeight, windowWidth } = res
@@ -81,10 +51,40 @@ Page({
     this.widget = this.selectComponent('.widget')
     setTimeout(() => {
       this.container = this.widget.renderToCanvas({
-        wxml: this.data.wxml,
-        style: this.data.wxmlStyle
+        wxml : wxml({
+          time: this.getNowTime().time,
+          date: this.getNowTime().date
+        }),
+        style
       })
     }, 300)
+  },
+  // 获取当前位置
+  getPosition() {
+    wx.getLocation({
+      type: 'wgs84',
+      success (res) {
+        console.log(res)
+        
+      }
+     })
+  },
+  // 获取当前时间
+  getNowTime () {
+    const weekNos = ['日', '一', '二', '三', '四', '五', '六']
+    const date = new Date()  
+    const yy = date.getFullYear()
+    const mm = date.getMonth() + 1
+    const dd = date.getDate()
+    const hh = date.getHours()
+    const mf = date.getMinutes() < 10 ? '0' + date.getMinutes()
+      :
+      date.getMinutes()
+    const weekNo = `星期${weekNos[date.getDay()]}`
+    return {
+      time: `${hh} : ${mf}`,
+      date: `${yy}/${mm}/${dd}      ${weekNo}`,
+    }
   },
   // 开始移动
   touchStart(e) {

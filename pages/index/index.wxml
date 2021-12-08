@@ -21,9 +21,8 @@
         bindtouchmove="move"
         class="widget"
         bindtouchend="touchEnd"
-        style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity:0.5;" />
+        style="position: fixed;left:{{pageX}}px;top:{{pageY}}px;z-index: 10;opacity:0.7;" />
   </div>
-  <wxml-to-canvas class="widget" />
   <!-- frame-size="large"拍照图片高清 -->
   <!-- 录像 -->
   <span class="take_video iconfont icon-luxiang" bindtap='takeVideo' />
