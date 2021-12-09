@@ -44,10 +44,11 @@
 
 .flash {
   position: fixed;
-  top: 20rpx;
+  top: 18rpx;
   right: 20rpx;
   color: #95a5a6;
   z-index: 20;
+  font-size: 44rpx;
 }
 .devicePosition {
   position: fixed;
@@ -55,5 +56,5 @@
   left: 20rpx; 
   color: #95a5a6;
   z-index: 20;
-  font-size: 40rpx;
+  font-size: 60rpx;
 }
