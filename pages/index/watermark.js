@@ -36,8 +36,7 @@ const style = {
         color: '#E1E6FD',
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'spaceBetween',
-        marginTop: 15
+        justifyContent: 'spaceBetween'
     },
     img: {
         width: 128,
@@ -45,9 +44,10 @@ const style = {
     },
     address: {
         width: 200,
-        height: 85,
+        height: 90,
         color: 'white',
-        fontSize: 24
+        fontSize: 24,
+        marginTop: 10
     }
 }
 

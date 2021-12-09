@@ -41,8 +41,8 @@ Page({
   },
 
   // div转canvas
-  onShow: function() {
-    this.getPosition()
+  onShow: async function() {
+    await this.getPosition()
     wx.getSystemInfo({
       success: res => {
         const {windowHeight, windowWidth } = res
