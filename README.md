@@ -1,1 +1,1 @@
-# mc-camera
+# watermark-camera-weixin-applet
